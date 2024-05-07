@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            text-align: left;
+            max-width: 400px; /* Adjust as needed */
+            width: 100%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+        input[type="text"],
+        input[type="password"] {
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="login-form">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <p style="text-align: center;">New user? <a href="register.html">Register here</a></p>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            
+            // Retrieve registration data from localStorage
+            var registeredUsername = localStorage.getItem('registeredUsername');
+            var registeredPassword = localStorage.getItem('registeredPassword');
+            
+            // Check if entered credentials match registered credentials
+            if (username === registeredUsername && password === registeredPassword) {
+                // If credentials match, redirect to the dashboard page
+                window.location.href = 'dashboard_test.html';
+            } else {
+                // If credentials don't match, show an error message
+                alert('Incorrect username or password. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
