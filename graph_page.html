@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Page</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Your CSS styles */
+    </style>
+</head>
+<body>
+    <h1>Graph Page</h1>
+    <div id="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+    <button class="back-button" onclick="redirectToSecurity()">Back to Security</button>
+    <button class="options-button" onclick="toggleOptionsDropdown()">Options</button>
+    <div class="options-dropdown" id="optionsDropdown">
+        <select class="time-frame-select" onchange="changeTimeFrame(this.value)">
+            <option value="days">Days</option>
+            <option value="weeks">Weeks</option>
+            <option value="months">Months</option>
+            <option value="years">Years</option>
+        </select>
+    </div>
+
+    <script>
+        var chart;
+        
+        // Function to fetch data from ThingSpeak
+        async function fetchDataFromThingSpeak() {
+            try {
+                const response = await fetch('https://api.thingspeak.com/channels/2526595/feeds.json?results=10');
+                const data = await response.json();
+                return data.feeds.map(feed => ({
+                    x: new Date(feed.created_at),
+                    y: parseFloat(feed.field1) // Assuming the data you want to plot is in field1
+                }));
+            } catch (error) {
+                console.error('Error fetching data from ThingSpeak:', error);
+                return [];
+            }
+        }
+
+        // Create the graph with data from ThingSpeak
+        async function createGraphFromThingSpeak() {
+            try {
+                const data = await fetchDataFromThingSpeak();
+                createGraph(data);
+            } catch (error) {
+                console.error('Error creating graph from ThingSpeak data:', error);
+            }
+        }
+
+        // Create the graph
+        function createGraph(data) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'ThingSpeak Data',
+                        data: data,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                displayFormats: {
+                                    days: 'MMM D',
+                                    weeks: 'MMM D',
+                                    months: 'MMM',
+                                    years: 'YYYY'
+                                }
+                            }
+                        },
+                        y: {
+                            min: -1,
+                            max: 1
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to change the time frame
+        function changeTimeFrame(value) {
+            // Adjust logic for changing time frame as needed
+        }
+
+        // Function to navigate back to the security page
+        function redirectToSecurity() {
+            window.location.href = 'security.html'; // Replace 'security_page.html' with the actual security page URL
+        }
+
+        // Function to toggle options dropdown
+        function toggleOptionsDropdown() {
+            var dropdown = document.getElementById('optionsDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Initial setup: create graph with data from ThingSpeak
+        createGraphFromThingSpeak();
+    </script>
+</body>
+</html>

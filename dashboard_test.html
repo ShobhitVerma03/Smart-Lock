@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            position: relative; /* Position relative for absolute positioning */
+        }
+        .dashboard {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .dialogue-box {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+        .bluetooth-symbol {
+            font-size: 50px;
+            text-align: center;
+        }
+        .security-symbol {
+            font-size: 50px;
+            text-align: center;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .logout-button button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-button">
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div class="dashboard">
+        <h2>Welcome to the Dashboard Test</h2>
+        <div class="dialogue-box" onclick="redirectToConnectDevicePage()">
+            <div class="bluetooth-symbol">&#128247;</div>
+            <h3 style="text-align: center;">Connect to Your Device</h3>
+        </div>
+        <div class="dialogue-box" onclick="redirectToSecurityPage()">
+            <div class="security-symbol">🔒</div>
+            <h3 style="text-align: center;">Security</h3>
+        </div>
+    </div>
+
+    <script>
+        function redirectToConnectDevicePage() {
+            // Redirect to Connect_device page
+            window.location.href = 'connect_device.html';
+        }
+
+        function redirectToSecurityPage() {
+            // Redirect to Security page
+            window.location.href = 'security.html';
+        }
+
+        function logout() {
+            // Perform logout functionality
+            // For example, redirect to login page
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
